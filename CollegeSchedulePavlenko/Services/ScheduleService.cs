@@ -140,5 +140,18 @@ namespace CollegeSchedulePavlenko.Services
                 Lessons = new List<LessonDto>()
             };
         }
+
+        public async Task<List<GroupDto>> GetAllGroupsAsync()
+        {
+            return await _db.StudentGroups
+                .OrderBy(g => g.GroupName)
+                .Select(g => new GroupDto
+                {
+                    Id = g.GroupId,
+                    Name = g.GroupName,
+                    Course = g.Course
+                })
+                .ToListAsync();
+        }
     }
 }
